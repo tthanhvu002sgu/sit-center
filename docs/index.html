@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0e0d" />
+    <title>Sit Center | Căn giữa vị trí ngồi</title>
+    <meta name="description" content="Công cụ toàn màn hình giúp căn giữa cơ thể, hai vai và tầm mắt với màn hình rộng." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="app" style="--half:16%;--shoulder-y:57%;--eye-y:31%;--alpha:.82">
+      <video id="camera" muted playsinline></video>
+      <div id="camera-shade" hidden></div>
+      <div class="grid" aria-hidden="true"></div>
+      <div class="guides" aria-hidden="true">
+        <div class="axis"><small>TÂM</small></div>
+        <div class="eye"><small>NGANG TẦM MẮT</small></div>
+        <div class="shoulder-level"></div>
+        <div class="shoulder left"><b></b><small>VAI TRÁI</small></div>
+        <div class="shoulder right"><b></b><small>VAI PHẢI</small></div>
+        <div class="target"><i></i></div>
+      </div>
+
+      <header>
+        <div class="brand"><span><i></i><i></i></span><div><strong>SIT CENTER</strong><small>Căn giữa vị trí ngồi</small></div></div>
+        <div class="actions"><button id="hide" class="quiet">Ẩn bảng <kbd>H</kbd></button><button id="fullscreen" class="primary">Toàn màn hình <kbd>F</kbd></button></div>
+      </header>
+
+      <section id="panel" aria-label="Bảng căn chỉnh">
+        <div class="panel-title"><div><p>CĂN NHANH</p><h1>Đặt cơ thể vào đúng trục</h1></div><button id="close" aria-label="Ẩn bảng">×</button></div>
+        <ol><li><b>1</b><span>Bật toàn màn hình và ngồi ở khoảng cách làm việc bình thường.</span></li><li><b>2</b><span>Căn mũi và giữa ngực trùng với đường tâm.</span></li><li><b>3</b><span>Chỉnh hai vạch đứng chạm mép ngoài hai vai.</span></li></ol>
+        <div class="camera-row"><div><strong>Gương camera</strong><small>Chính xác hơn, hình ảnh không được tải lên.</small></div><button id="camera-toggle" class="switch" aria-pressed="false"><span>Tắt</span><i></i></button></div>
+        <p id="error" hidden></p>
+        <div class="sliders">
+          <label><span><b>Khoảng cách hai vai</b><output id="width-out"></output></span><input id="width" type="range" min="8" max="30" step=".5" value="16" /></label>
+          <label><span><b>Độ cao vai</b><output id="shoulder-out"></output></span><input id="shoulder-y" type="range" min="38" max="76" value="57" /></label>
+          <label><span><b>Độ cao tầm mắt</b><output id="eye-out"></output></span><input id="eye-y" type="range" min="18" max="48" value="31" /></label>
+          <label><span><b>Độ sáng vạch</b><output id="brightness-out"></output></span><input id="brightness" type="range" min="35" max="100" value="82" /></label>
+        </div>
+        <footer><label><input id="eye-visible" type="checkbox" checked /> Hiện đường tầm mắt</label><button id="reset" class="quiet">Đặt lại</button></footer>
+      </section>
+      <div id="focus-note" hidden><span>Mũi ở đường tâm. Hai vai chạm hai vạch.</span><button id="show">Chỉnh lại</button></div>
+      <div class="shortcuts"><span><kbd>←</kbd><kbd>→</kbd> Khoảng vai</span><span><kbd>C</kbd> Camera</span><span><kbd>H</kbd> Ẩn bảng</span><span><kbd>F</kbd> Toàn màn hình</span></div>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
