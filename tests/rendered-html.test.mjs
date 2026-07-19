@@ -39,3 +39,22 @@ test("uses short-lived D1 signaling without storing video", async () => {
   assert.match(migration, /CREATE TABLE `camera_sessions`/);
   assert.equal(JSON.parse(hosting).d1, "DB");
 });
+
+test("ships a static GitHub Pages build with phone-camera pairing", async () => {
+  const [html, script, css, noJekyll] = await Promise.all([
+    readFile(new URL("docs/index.html", root), "utf8"),
+    readFile(new URL("docs/app.js", root), "utf8"),
+    readFile(new URL("docs/style.css", root), "utf8"),
+    access(new URL("docs/.nojekyll", root)),
+  ]);
+
+  assert.match(html, /peerjs@1\.5\.5/);
+  assert.match(html, /qrcodejs@1\.0\.0/);
+  assert.match(html, /id="remote-camera"/);
+  assert.match(html, /id="phone-view"/);
+  assert.match(script, /new window\.Peer/);
+  assert.match(script, /peer\.call\(phoneTarget, phoneStream\)/);
+  assert.match(script, /new window\.QRCode/);
+  assert.match(css, /\.pairing-dialog/);
+  assert.equal(noJekyll, undefined);
+});

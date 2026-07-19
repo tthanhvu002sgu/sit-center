@@ -40,6 +40,10 @@ peer-to-peer and is not stored by the application. Browsers do not expose a
 phone camera as a Bluetooth video source, so Bluetooth cannot carry the camera
 stream; the app uses QR pairing and WebRTC over the local network instead.
 
+The static GitHub Pages build lives in `docs/`. Because GitHub Pages cannot run
+the D1 signaling API, that build uses the free PeerJS Cloud service for
+signaling metadata while keeping the video stream peer-to-peer.
+
 ## Workspace Auth Headers
 
 OpenAI workspace sites can read the current user's email from

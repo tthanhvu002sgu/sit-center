@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0a0e0d" />
     <title>Sit Center | Căn giữa vị trí ngồi</title>
-    <meta name="description" content="Công cụ toàn màn hình giúp căn giữa cơ thể, hai vai và tầm mắt với màn hình rộng." />
+    <meta name="description" content="Căn giữa tư thế với webcam máy tính hoặc camera điện thoại kết nối không dây." />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -30,7 +30,15 @@
       <section id="panel" aria-label="Bảng căn chỉnh">
         <div class="panel-title"><div><p>CĂN NHANH</p><h1>Đặt cơ thể vào đúng trục</h1></div><button id="close" aria-label="Ẩn bảng">×</button></div>
         <ol><li><b>1</b><span>Bật toàn màn hình và ngồi ở khoảng cách làm việc bình thường.</span></li><li><b>2</b><span>Căn mũi và giữa ngực trùng với đường tâm.</span></li><li><b>3</b><span>Chỉnh hai vạch đứng chạm mép ngoài hai vai.</span></li></ol>
-        <div class="camera-row"><div><strong>Gương camera</strong><small>Chính xác hơn, hình ảnh không được tải lên.</small></div><button id="camera-toggle" class="switch" aria-pressed="false"><span>Tắt</span><i></i></button></div>
+        <div class="camera-row"><div><strong>Camera máy tính</strong><small>Dùng webcam trên thiết bị này.</small></div><button id="camera-toggle" class="switch" aria-pressed="false"><span>Tắt</span><i></i></button></div>
+        <div class="remote-camera-wrap">
+          <button id="remote-camera" class="remote-camera" type="button">
+            <i aria-hidden="true"></i>
+            <span><strong>Kết nối camera điện thoại</strong><small>Quét QR để kết nối không dây</small></span>
+            <b aria-hidden="true">→</b>
+          </button>
+          <p>Bluetooth không truyền được video camera trong trình duyệt. Sit Center dùng WebRTC qua Wi‑Fi để hình ảnh mượt hơn.</p>
+        </div>
         <p id="error" hidden></p>
         <div class="sliders">
           <label><span><b>Khoảng cách hai vai</b><output id="width-out"></output></span><input id="width" type="range" min="8" max="30" step=".5" value="16" /></label>
@@ -43,6 +51,45 @@
       <div id="focus-note" hidden><span>Mũi ở đường tâm. Hai vai chạm hai vạch.</span><button id="show">Chỉnh lại</button></div>
       <div class="shortcuts"><span><kbd>←</kbd><kbd>→</kbd> Khoảng vai</span><span><kbd>C</kbd> Camera</span><span><kbd>H</kbd> Ẩn bảng</span><span><kbd>F</kbd> Toàn màn hình</span></div>
     </main>
+
+    <div id="pairing-backdrop" class="pairing-backdrop" hidden>
+      <section class="pairing-dialog" role="dialog" aria-modal="true" aria-labelledby="pairing-title">
+        <button id="pairing-close" class="dialog-close" type="button" aria-label="Đóng">×</button>
+        <span id="pairing-status" class="status-pill">Đang tạo phiên…</span>
+        <h2 id="pairing-title">Kết nối camera điện thoại</h2>
+        <p>Mở camera trên điện thoại, quét mã QR rồi cho phép truy cập camera.</p>
+        <div id="qr-code" class="qr-frame" aria-label="Mã QR kết nối camera điện thoại"></div>
+        <button id="copy-link" class="copy-link" type="button" hidden>Sao chép liên kết</button>
+        <ol class="pairing-steps">
+          <li><b>1</b><span>Kết nối Internet trên cả hai thiết bị</span></li>
+          <li><b>2</b><span>Quét QR bằng camera điện thoại</span></li>
+          <li><b>3</b><span>Cho phép truy cập camera</span></li>
+        </ol>
+        <small>Video truyền ngang hàng và không được Sit Center lưu trữ.</small>
+      </section>
+    </div>
+
+    <main id="phone-view" class="phone-view" hidden>
+      <video id="phone-preview" muted playsinline></video>
+      <div class="phone-shade"></div>
+      <section class="phone-card">
+        <div class="brand"><span><i></i><i></i></span><div><strong>SIT CENTER</strong><small>Camera điện thoại</small></div></div>
+        <span id="phone-status" class="status-pill">Sẵn sàng</span>
+        <h1>Dùng điện thoại làm camera</h1>
+        <p>Video truyền trực tiếp đến máy tính bằng WebRTC và không được lưu trên máy chủ.</p>
+        <div class="facing-choice">
+          <button type="button" class="selected" data-facing="user">Camera trước</button>
+          <button type="button" data-facing="environment">Camera sau</button>
+        </div>
+        <button id="phone-connect" class="phone-connect" type="button">Cho phép và kết nối camera</button>
+        <button id="phone-stop" class="phone-stop" type="button" hidden>Dừng truyền camera</button>
+        <p id="phone-error" class="phone-error" hidden></p>
+        <small>Giữ trang này mở trong lúc sử dụng camera.</small>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
