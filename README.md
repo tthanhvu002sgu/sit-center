@@ -27,6 +27,19 @@ This starter does not use `wrangler.jsonc`.
 - `examples/d1/` contains an optional D1 example surface
 - `drizzle.config.ts` supports local migration generation when needed
 
+## Phone camera pairing
+
+Sit Center can use either the computer webcam or a phone camera:
+
+1. Choose **Kết nối camera điện thoại** on the computer.
+2. Scan the one-time QR code with the phone.
+3. Allow camera access and keep both devices on the same Wi-Fi network.
+
+The QR code exchanges a short-lived WebRTC offer through D1. Video is sent
+peer-to-peer and is not stored by the application. Browsers do not expose a
+phone camera as a Bluetooth video source, so Bluetooth cannot carry the camera
+stream; the app uses QR pairing and WebRTC over the local network instead.
+
 ## Workspace Auth Headers
 
 OpenAI workspace sites can read the current user's email from

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sit Center | Căn giữa vị trí ngồi",
   description:
-    "Công cụ toàn màn hình giúp căn giữa cơ thể, hai vai và tầm mắt với màn hình rộng.",
+    "Công cụ căn giữa tư thế với camera máy tính hoặc camera điện thoại kết nối không dây.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
